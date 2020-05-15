@@ -1,0 +1,37 @@
+<%= form_with(model: country, local: true) do |form| %>
+    <% if country.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(country.errors.count, "error") %> prohibited this country from being saved:</h2>
+
+          <ul>
+            <% country.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+    <div>
+      <select class="js-example-basic-single" name="state">
+        <option value="AL">Alabama</option>
+        <option value="WY">addf</option>
+        <option value="WY">Wyoming</option>
+      </select>
+    </div>
+    <div>
+      <%= form.select(:country, Country.all.collect {|key, val| [key.name, key.name]}, {selected: @country.nil? ? '' : @country.name}, {:class => 'form-control'},) %>
+    </div>
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+<% end %>
+<script>
+      $(document).ready(function() {
+      $('.js-example-basic-single').select2();
+      $('.form-control').select2();
+  });
+</script>
